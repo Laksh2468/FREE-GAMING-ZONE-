@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Free Gaming Zone</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+}
+header {
+    background: #020617;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #22c55e;
+}
+header h1 {
+    color: #22c55e;
+    margin: 0;
+}
+section {
+    padding: 40px 20px;
+}
+h2, h3 {
+    color: #38bdf8;
+    text-align: center;
+}
+.games {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.card {
+    background: #020617;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.card h3 {
+    color: #facc15;
+}
+.card p {
+    font-size: 14px;
+    color: #cbd5f5;
+}
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #22c55e;
+    color: #020617;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #16a34a;
+}
+
+#details {
+    display: none;
+    max-width: 1000px;
+    margin: auto;
+}
+.box {
+    background: #020617;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    white-space: pre-wrap; /* Maintains the formatting of the requirements text */
+}
+iframe {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+}
+#screenshots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#screenshots img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 10px;
+    margin: 10px;
+}
+.center {
+    text-align: center;
+}
+
+footer {
+    background: #020617;
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎮 Free Gaming Zone</h1>
+    <p>Mobile • PC • PlayStation Free Games</p>
+</header>
+
+<section id="list">
+
+<h2>📱 Mobile Games</h2>
+<div class="games">
+    <div class="card">
+        <h3>Call of Duty Mobile</h3>
+        <p>Official free-to-play FPS game.</p>
+        <a class="btn" onclick="openGame('codm')">View</a>
+    </div>
+    <div class="card">
+        <h3>Among Us</h3>
+        <p>Popular multiplayer party game.</p>
+        <a class="btn" onclick="openGame('amongus')">View</a>
+    </div>
+</div>
+
+<h2>💻 PC Games</h2>
+<div class="games">
+    <div class="card">
+        <h3>Fortnite</h3>
+        <p>Battle royale free-to-play game.</p>
+        <a class="btn" onclick="openGame('fortnite')">View</a>
+    </div>
+    <div class="card">
+        <h3>Dota 2</h3>
+        <p>Free MOBA game on PC.</p>
+        <a class="btn" onclick="openGame('dota2')">View</a>
+    </div>
+</div>
+
+<h2>🎮 Console Games</h2>
+<div class="games">
+    <div class="card">
+        <h3>Warframe</h3>
+        <p>Free sci-fi action game.</p>
+        <a class="btn" onclick="openGame('warframe')">View</a>
+    </div>
+    <div class="card">
+        <h3>Apex Legends</h3>
+        <p>Free battle royale shooter.</p>
+        <a class="btn" onclick="openGame('apex')">View</a>
+    </div>
+</div>
+
+</section>
+
+<section id="details">
+    <h2 id="gameTitle"></h2>
+
+    <h3>🎬 Trailer</h3>
+    <iframe id="gameVideo" allowfullscreen></iframe>
+
+    <h3>🖼️ Screenshots</h3>
+    <div id="screenshots"></div>
+
+    <h3>📱💻🎮 Device Requirements</h3>
+    <div class="box" id="requirements"></div>
+
+    <h3>🔐 Login / Sign-In Details</h3>
+    <div class="box" id="login"></div>
+
+    <div class="center">
+        <a id="downloadBtn" class="btn" target="_blank">Download (Official)</a><br><br>
+        <a class="btn" onclick="goBack()">⬅ Back to Games</a>
+    </div>
+</section>
+
+<footer>
+    <p>⚠️ All downloads redirect to official game platforms only.</p>
+    <p>© 2026 Free Gaming Zone</p>
+</footer>
+
+<script>
+const steamInstructions = `
+How to Log In (Existing Account)
+1. Open Steam: Launch the Steam application on your desktop.
+2. Enter Credentials: Type your account name and password.
+3. Steam Guard Verification: If prompted, enter the special code sent to your email or shown in the Steam Mobile app.
+4. Finish: Click "Sign in" to access your Library and Store. 
+
+How to Sign Up (Create a New Account)
+1. Download & Install: Go to the official Steam website and download the installer.
+2. Launch & Create Account: Open the app and click "Create a Free Account" on the login screen.
+3. Enter Details: Provide your email address, select your country, and agree to the terms.
+4. Verify Email: Check your email for a verification link from Steam to confirm your address.
+5. Set Username & Password: Choose a unique account name and a strong password to complete the setup.
+`;
+
+const epicInstructions = `
+Step-by-Step Login Instructions
+1. Go to the Login Page: Navigate to https://www.epicgames.com/id/login.
+2. Enter Credentials: Enter the email address associated with your Epic Games account.
+3. Submit: Click Continue.
+4. Enter Password: Type in your password.
+5. Sign In: Click the Sign In button.
+6. Verify (If Necessary): If 2FA is enabled, enter the verification code sent to your email or app. 
+
+Alternative Login Methods
+If you created your account using a third-party platform, you can click on the respective icons to sign in: 
+• Console: PlayStation, Xbox, or Nintendo.
+• Social/Other: Google, Facebook, Apple, Steam, or GitHub. 
+
+Troubleshooting
+• Forgot Password: Click "Forgot your password?" on the login screen to reset it via email.
+• Login Errors: Ensure you are not using a VPN, as this can cause connectivity issues.
+• Account Recovery: If you cannot access your email, use the "Recover account" link.
+`;
+
+const games = {
+
+    codm: {
+        title: "Call of Duty Mobile",
+        video: "https://www.youtube.com/embed/0E44DClsX5Q",
+        req: `
+Mobile:
+• Android 5.1+ / iOS 9+
+• RAM: 2GB (4GB recommended)
+• Storage: 5–10GB
+• Stable Internet
+
+PC (Warzone / MW):
+• Windows 10/11 64-bit
+• 8–16GB RAM
+• GTX 1060 / RTX 3060
+• SSD Required
+
+PlayStation:
+• PS4 / PS5
+• 100GB+ Storage
+• PlayStation Plus Required
+        `,
+        login: "Activision Account / Google / Facebook",
+        link: "https://play.google.com/store/apps/details?id=com.activision.callofduty.shooter",
+        images: [
+            "1000205477.jpg",
+            "1000205476.jpg",
+            "1000205474.jpg",
+            "1000205478.jpg",
+            "1000205475.jpg"
+        ]
+    },
+
+    amongus: {
+        title: "Among Us",
+        video: "https://www.youtube.com/embed/NSJ4cESNQfE",
+        req: `
+Mobile:
+• Android 6+ / iOS 13+
+• 2GB RAM
+
+PC:
+• Windows 7+
+• 1GB RAM
+• 250MB Storage
+
+PlayStation:
+• PS4 / PS5
+• PS Plus for Online
+        `,
+        login: "Activision Account / Google / Facebook",
+        link: "https://play.google.com/store/apps/details?id=com.innersloth.spacemafia",
+        images: [
+            "1000205468.jpg",
+            "1000205465.jpg",
+            "1000205467.jpg",
+            "1000205466.jpg",
+            "1000205464.jpg"
+        ]
+    },
+
+    fortnite: {
+        title: "Fortnite",
+        video: "https://www.youtube.com/embed/2gUtfBmw86Y",
+        req: `
+PC:
+• Windows 10/11
+• 8–16GB RAM
+• GTX 1660 / RTX 4070
+• SSD Recommended
+
+Mobile:
+• Android 10+ (ARM64)
+• iPhone 11+
+• 4GB RAM
+
+PlayStation:
+• PS4 / PS5
+• 76GB Storage
+        `,
+        login: "Epic Games Account\n" + epicInstructions,
+        link: "https://store.epicgames.com/en-US/p/fortnite",
+        images: [
+            "1000205471.jpg",
+            "1000205472.jpg",
+            "1000205470.jpg",
+            "1000205473.jpg",
+            "1000205469.jpg"
+        ]
+    },
+
+    dota2: {
+        title: "Dota 2",
+        video: "https://www.youtube.com/embed/-cSFPIwMEq4",
+        req: `
+PC:
+• Windows 10 / macOS / Linux
+• 4GB RAM (8GB recommended)
+• GTX 1060
+• 60GB Storage
+
+Mobile / Console:
+• Via Streaming Only
+        `,
+        login: "Steam Account\n" + steamInstructions,
+        link: "https://store.steampowered.com/app/570/Dota_2/",
+        images: [
+            "1000204662.jpg",
+            "1000204663.jpg",
+            "1000204665.jpg",
+            "1000204661.jpg",
+            "1000204664.jpg"
+        ]
+    },
+
+    warframe: {
+        title: "Warframe",
+        video: "https://www.youtube.com/embed/MsbL8lFHrZI",
+        req: `
+PC:
+• Windows 7+ (64-bit)
+• 4GB RAM
+• DX11 GPU
+• 50GB Storage
+
+Mobile:
+• iOS 14+ (iPhone XS+)
+• Android 12+ (2026)
+
+PlayStation:
+• PS4 / PS5
+        `,
+        login: "Steam / PlayStation Account\n" + steamInstructions,
+        link: "https://store.steampowered.com/app/230410/Warframe/",
+        images: [
+            "1000204707.jpg",
+            "1000204711.jpg",
+            "1000204710.jpg",
+            "1000204708.jpg",
+            "1000204709.jpg"
+        ]
+    },
+
+    apex: {
+        title: "Apex Legends",
+        video: "https://www.youtube.com/embed/innmNewjkuk",
+        req: `
+Mobile:
+• Android 6+ / iOS 11+
+• 2GB RAM
+
+PC:
+• Windows 10
+• 8GB RAM
+• GTX 970
+• 75GB Storage
+
+PlayStation:
+• PS4 / PS5
+• EA Account
+        `,
+        login: "EA Account\n" + steamInstructions,
+        link: "https://store.steampowered.com/app/1172470/Apex_Legends/",
+        images: [
+            "1000204706.jpg",
+            "1000204704.jpg",
+            "1000204705.jpg",
+            "1000204703.webp",
+            "1000204702.jpg"
+        ]
+    }
+
+};
+
+function openGame(key) {
+    const g = games[key];
+    document.getElementById("list").style.display = "none";
+    document.getElementById("details").style.display = "block";
+
+    document.getElementById("gameTitle").innerText = g.title;
+    document.getElementById("gameVideo").src = g.video;
+    document.getElementById("requirements").innerText = g.req;
+    document.getElementById("login").innerText = g.login;
+    document.getElementById("downloadBtn").href = g.link;
+
+    const imgBox = document.getElementById("screenshots");
+    imgBox.innerHTML = "";
+
+    if (g.images.length > 0) {
+        g.images.forEach(img => {
+            const i = document.createElement("img");
+            i.src = img;
+            imgBox.appendChild(i);
+        });
+    } else {
+        imgBox.innerHTML = "<p>No screenshots available.</p>";
+    }
+}
+
+function goBack() {
+    document.getElementById("details").style.display = "none";
+    document.getElementById("list").style.display = "block";
+    document.getElementById("gameVideo").src = "";
+}
+</script>
+
+</body>
+</html>
